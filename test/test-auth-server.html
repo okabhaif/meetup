@@ -1,0 +1,65 @@
+<!-- https://yim1zavn4e.execute-api.eu-west-2.amazonaws.com/dev/api/token/ -->
+
+<!-- User authorization code
+ https://secure.meetup.com/oauth2/authorize?client_id=8im0klia1ce1meq19gcrvqvnea&response_type=code&redirect_uri=https://okabhaif.github.io/meetup/ -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+</head>
+
+<body>
+
+  <div id="container">
+    <input id="code" type="text" placeholder="code" />
+    <button id="getToken">Get Token</button>
+    <p id="result"></p>
+  </div>
+
+  <div id="refresh-container">
+    <input id="refreshCode" type="text" placeholder="code" />
+    <button id="getRefreshToken">Get Refresh Token</button>
+    <p id="refreshResult"></p>
+  </div>
+
+  <script type="text/javascript">
+    const getTokenElement = document.getElementById('getToken');
+    getTokenElement.onclick = function () {
+      const codeElement = document.getElementById('code');
+      const resultElement = document.getElementById('result');
+      const codeValue = codeElement.value;
+
+      // Replace this by your function endpoint
+      const lambdaURL = 'https://yim1zavn4e.execute-api.eu-west-2.amazonaws.com/dev/api/token/' + codeValue;
+
+      fetch(lambdaURL)
+        .then(function (response) {
+          return response.json();
+        })
+        .then(function (json) {
+          resultElement.innerText = JSON.stringify(json);
+        });
+    }
+
+    const getRefreshTokenElement = document.getElementById('getRefreshToken');
+    getRefreshTokenElement.onclick = function () {
+      const refreshCodeElement = document.getElementById('refreshCode');
+      const refreshResultElement = document.getElementById('refreshResult');
+      const refreshCodeValue = refreshCodeElement.value;
+
+      // Replace this by your function endpoint
+      const lambdaURL = 'https://yim1zavn4e.execute-api.eu-west-2.amazonaws.com/dev/api/refresh_token/' + refreshCodeValue;
+
+      fetch(lambdaURL)
+        .then(function (response) {
+          return response.json();
+        })
+        .then(function (json) {
+          refreshResultElement.innerText = JSON.stringify(json);
+        });
+    }
+  </script>
+</body>
+
+</html>

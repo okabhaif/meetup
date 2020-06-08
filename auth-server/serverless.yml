@@ -1,0 +1,22 @@
+service: auth-server
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  region: eu-west-2
+  timeout: 60 # optional, in seconds, default is 6
+
+functions:
+  getAccessToken:
+    handler: handler.getAccessToken
+    events:
+      - http:
+          path: api/token/{code}
+          method: get
+
+  getRefreshAccessToken:
+    handler: handler.getRefreshAccessToken
+    events:
+      - http:
+          path: api/refresh_token/{refresh_token}
+          method: get
