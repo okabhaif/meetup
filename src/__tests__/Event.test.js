@@ -5,8 +5,31 @@ import Event from '../Event';
 
 describe('<Event /> component', () => {
   let EventWrapper;
+  const event = {
+    created: 1579604949000,
+    duration: 108000000,
+    id: 268082423,
+    name: 'Cadair idris & mawwdach cycle weekend away',
+    local_date: '2020-06-27',
+    local_time: '11:00',
+    yes_rsvp_count: 63,
+    group: {
+      id: 23394218,
+      join_mode: 'approval',
+      lat: 52.709999084472656,
+      lon: -2.75,
+      urlname: 'meetup-group-wKtrSzWw',
+      who: 'Members',
+      localized_location: 'Shrewsbury, United Kingdom'
+    },
+    link: 'https://www.meetup.com/meetup-group-wKtrSzWw/events/268082423/',
+    description: 'Join us for a weekrmd away near Barmouth . Saturday cadair idris Walk , Saturday night dinner and Sunday mawddach trail cycle ride .Accommodation is up to you . Some of us are staying in dollengau others Barmouth',
+    visibility: 'public',
+    member_pay_fee: false
+  }
+
   beforeEach(() => {
-    EventWrapper = shallow(<Event />);
+    EventWrapper = shallow(<Event event={event} />);
   });
 
   test('render event-details', () => {
@@ -51,46 +74,15 @@ describe('<Event /> component', () => {
   });
 
   test('render event title', () => {
-    EventWrapper.setState({
-      event: {
-        local_time: '19:00',
-        link: 'https://www.meetup.com/Lichfield-Ladies-over-40s-Book-Club-with-wine-and-friends/events/269039500/',
-        name: 'Lichfield Ladies over 40s Book Club with wine and friends',
-        id: '32534983',
-        join_mode: 'approval',
-        urlname: 'Lichfield-Ladies-over-40s-Book-Club-with-wine-and-friends',
-        who: 'Members',
-        localized_location: 'Lichfield, United Kingdom',
-        country: 'gb',
-        timezone: 'Europe/London',
-        waitlist_count: 0,
-        yes_rsvp_count: 7,
-        description: '1984 by George Orwell'
-      }
-    });
-    expect(EventWrapper.find('.event-name').first().text()).toEqual('Lichfield Ladies over 40s Book Club with wine and friends');
+
+    expect(EventWrapper.find('.event-name').first().text()).toEqual('Cadair idris & mawwdach cycle weekend away');
   });
 
   test('render description when showDetails===true', () => {
     EventWrapper.setState({
-      event: {
-        local_time: '19:00',
-        link: 'https://www.meetup.com/Lichfield-Ladies-over-40s-Book-Club-with-wine-and-friends/events/269039500/',
-        name: 'Lichfield Ladies over 40s Book Club with wine and friends',
-        id: '32534983',
-        join_mode: 'approval',
-        urlname: 'Lichfield-Ladies-over-40s-Book-Club-with-wine-and-friends',
-        who: 'Members',
-        localized_location: 'Lichfield, United Kingdom',
-        country: 'gb',
-        timezone: 'Europe/London',
-        waitlist_count: 0,
-        yes_rsvp_count: 7,
-        description: '1984 by George Orwell'
-      },
       showDetails: true
     });
-    expect(EventWrapper.find('.event-description').first().text()).toEqual('1984 by George Orwell');
+    expect(EventWrapper.find('.event-description').first().text()).toEqual('Join us for a weekrmd away near Barmouth . Saturday cadair idris Walk , Saturday night dinner and Sunday mawddach trail cycle ride .Accommodation is up to you . Some of us are staying in dollengau others Barmouth');
   });
 
 });
