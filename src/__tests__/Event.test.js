@@ -1,17 +1,67 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import Event from '../Event';
-
+const exampleEvent = {
+  created: 1591604579000,
+  duration: 7200000,
+  id: '271158441',
+  name: 'Rust Remote #3',
+  date_in_series_pattern: false,
+  status: 'upcoming',
+  time: 1598378400000,
+  local_date: '2020-08-25',
+  local_time: '20:00',
+  updated: 1592460378000,
+  utc_offset: 7200000,
+  waitlist_count: 0,
+  yes_rsvp_count: 19,
+  venue: {
+    id: 26906060,
+    name: 'Online event',
+    repinned: false,
+    country: '',
+    localized_country_name: '',
+  },
+  is_online_event: true,
+  group: {
+    created: 1431526364000,
+    name: 'Rust Munich',
+    id: 18594917,
+    join_mode: 'open',
+    lat: 48.13999938964844,
+    lon: 11.579999923706055,
+    urlname: 'rust-munich',
+    who: 'Members',
+    localized_location: 'München, Germany',
+    state: '',
+    country: 'de',
+    region: 'en_US',
+    timezone: 'Europe/Berlin',
+  },
+  link: 'https://www.meetup.com/rust-munich/events/271158441/',
+  description: 'Third round of a purely online/remote meetup ',
+  how_to_find_us: 'https://youtu.be/on4Tb0Ssdro',
+  visibility: 'public',
+  member_pay_fee: false,
+};
 
 describe('<Event /> component', () => {
   let EventWrapper;
+
   beforeEach(() => {
-    EventWrapper = shallow(<Event />);
+    EventWrapper = shallow(<Event event={exampleEvent} />);
   });
 
   test('render event-details', () => {
     expect(EventWrapper.find('.event-details')).toHaveLength(1);
+    expect(EventWrapper.find('.event-date')).toHaveLength(1);
+    expect(EventWrapper.find('.event-time')).toHaveLength(1);
+    expect(EventWrapper.find('.event-attendees')).toHaveLength(1);
+    expect(EventWrapper.find('.event-name')).toHaveLength(1);
+    expect(EventWrapper.find('.event-location')).toHaveLength(1);
   });
+
+
 
   test('render showDetails button', () => {
     expect(EventWrapper.find('.showDetails')).toHaveLength(1);
@@ -25,8 +75,6 @@ describe('<Event /> component', () => {
     EventWrapper.find('.showDetails').simulate('click');
     expect(EventWrapper.state('showDetails')).toBe(true);
   });
-
-
 
   test('click on button should hide details', () => {
     EventWrapper.setState({
@@ -51,46 +99,14 @@ describe('<Event /> component', () => {
   });
 
   test('render event title', () => {
-    EventWrapper.setState({
-      event: {
-        local_time: '19:00',
-        link: 'https://www.meetup.com/Lichfield-Ladies-over-40s-Book-Club-with-wine-and-friends/events/269039500/',
-        name: 'Lichfield Ladies over 40s Book Club with wine and friends',
-        id: '32534983',
-        join_mode: 'approval',
-        urlname: 'Lichfield-Ladies-over-40s-Book-Club-with-wine-and-friends',
-        who: 'Members',
-        localized_location: 'Lichfield, United Kingdom',
-        country: 'gb',
-        timezone: 'Europe/London',
-        waitlist_count: 0,
-        yes_rsvp_count: 7,
-        description: '1984 by George Orwell'
-      }
-    });
-    expect(EventWrapper.find('.event-name').first().text()).toEqual('Lichfield Ladies over 40s Book Club with wine and friends');
+    expect(EventWrapper.find('.event-name').first().text()).toEqual('Rust Remote #3');
   });
 
   test('render description when showDetails===true', () => {
     EventWrapper.setState({
-      event: {
-        local_time: '19:00',
-        link: 'https://www.meetup.com/Lichfield-Ladies-over-40s-Book-Club-with-wine-and-friends/events/269039500/',
-        name: 'Lichfield Ladies over 40s Book Club with wine and friends',
-        id: '32534983',
-        join_mode: 'approval',
-        urlname: 'Lichfield-Ladies-over-40s-Book-Club-with-wine-and-friends',
-        who: 'Members',
-        localized_location: 'Lichfield, United Kingdom',
-        country: 'gb',
-        timezone: 'Europe/London',
-        waitlist_count: 0,
-        yes_rsvp_count: 7,
-        description: '1984 by George Orwell'
-      },
       showDetails: true
     });
-    expect(EventWrapper.find('.event-description').first().text()).toEqual('1984 by George Orwell');
+    expect(EventWrapper.find('.event-description').first().text()).toEqual('Third round of a purely online/remote meetup ');
   });
 
 });
