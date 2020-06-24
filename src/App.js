@@ -35,8 +35,9 @@ class App extends Component {
     return (
       <div className="App">
         <CitySearch updateEvents={this.updateEvents} />
-        <EventList events={this.state.events} />
         <NumberOfEvents eventsPerPage={this.state.eventsPerPage} handleInputChanged={(event) => this.updateNumberOfEvents(event)} />
+        <EventList events={this.state.events} />
+
       </div>
     );
   }
