@@ -38,7 +38,6 @@ async function getSuggestions(query) {
 };
 
 async function getEvents(lat, lon, page) {
-  console.log("getting events", lat, lon, page, window.location.href.startsWith('http://localhost'))
   if (window.location.href.startsWith('http://localhost')) {
     if (typeof page === "undefined") {
       return mockEvents.events;

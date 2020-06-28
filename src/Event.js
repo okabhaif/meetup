@@ -26,7 +26,7 @@ class Event extends Component {
           <p className="event-date"><b>Date of Event:</b>&nbsp;{this.props.event.local_date}</p>
           <p className="event-time"><b>Time of Event:&nbsp;</b>{this.props.event.local_time}</p>
           <p className="event-attendees"><b>Group:&nbsp;</b>{this.props.event.yes_rsvp_count} people confirmed. </p>
-          <p className="event-location"><b>Location of Event:&nbsp;</b>{this.props.event.group.localized_location}</p>
+          {/* <p className="event-location"><b>Location of Event:&nbsp;</b>{this.props.event.group.localized_location}</p> */}
           {!this.state.showDetails && <button onClick={this.handleShowDetails} className="showDetails"> Details </button>}
         </div>
 

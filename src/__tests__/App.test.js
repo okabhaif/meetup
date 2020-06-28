@@ -39,7 +39,6 @@ describe('<App /> integration', () => {
     CitySearchWrapper.instance().handleItemClicked('value', 1.1, 1.2);
     expect(AppWrapper.instance().updateEvents).toHaveBeenCalledTimes(1);
     expect(AppWrapper.instance().updateEvents).toHaveBeenCalledWith(1.1, 1.2);
-    AppWrapper.unmount();
   });
 
   test('change state after get list of events', async () => {
@@ -51,6 +50,28 @@ describe('<App /> integration', () => {
   test('render correct list of events', () => {
     AppWrapper.setState({ events: [{ id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }] });
     expect(AppWrapper.find('.suggestions--events')).toHaveLength(4);
-    AppWrapper.unmount();
   });
+
+  test('render number of events based on user input', async () => {
+    AppWrapper.instance().updateNumberOfEvents = jest.fn();
+    AppWrapper.instance().forceUpdate();
+    const NumberOfEventsWrapper = AppWrapper.find(NumberOfEvents);
+    const eventNumbersObject = { target: { value: 12 } };
+    NumberOfEventsWrapper.find('.number-of-events-input').simulate('change', eventNumbersObject);
+    expect(AppWrapper.instance().updateNumberOfEvents).toHaveBeenCalledTimes(1);
+  });
+
+  test('initial state - number of event suggestions', async () => {
+    await AppWrapper.update();
+    expect(AppWrapper.find('.suggestions--events')).toHaveLength(4);
+  });
+
+  test('interaction - number of events + event list', async () => {
+    await AppWrapper.instance().updateNumberOfEvents(2);
+    await AppWrapper.update();
+    const EventListWrapper = AppWrapper.find(EventList);
+    expect(EventListWrapper.find('.suggestions--events')).toHaveLength(2);
+  });
+
+
 });

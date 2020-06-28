@@ -58,7 +58,6 @@ describe('<Event /> component', () => {
     expect(EventWrapper.find('.event-time')).toHaveLength(1);
     expect(EventWrapper.find('.event-attendees')).toHaveLength(1);
     expect(EventWrapper.find('.event-name')).toHaveLength(1);
-    expect(EventWrapper.find('.event-location')).toHaveLength(1);
   });
 
 
