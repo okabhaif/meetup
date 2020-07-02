@@ -5,7 +5,9 @@ import EventList from './EventList';
 import CitySearch from './CitySearch';
 import NumberOfEvents from './NumberOfEvents';
 import { getEvents } from './api';
+import debounce from './debounce';
 
+const debouncedGetEvents = debounce(getEvents, 500);
 
 class App extends Component {
   constructor(props) {
@@ -24,7 +26,7 @@ class App extends Component {
 
   updateNumberOfEvents = value => {
     this.setState({ eventsPerPage: value });
-    return getEvents(this.state.lat, this.state.lon, value).then(events => this.setState({ events }));
+    return debouncedGetEvents(this.state.lat, this.state.lon, value).then(events => this.setState({ events }));
   };
 
   updateEvents = (lat, lon) => {
@@ -32,7 +34,7 @@ class App extends Component {
       lat,
       lon
     });
-    return getEvents(lat, lon, this.state.eventsPerPage).then(events => this.setState({ events }));
+    return debouncedGetEvents(lat, lon, this.state.eventsPerPage).then(events => this.setState({ events }));
   };
 
   render() {

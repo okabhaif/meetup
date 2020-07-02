@@ -9,9 +9,9 @@ class NumberOfEvents extends Component {
 
   handleNumberInputChanged = (value) => {
     this.setState({ eventsPerPage: value });
-    if (value && this.props.eventsPerPage.length <= 0) {
+    if (value <= 0) {
       this.setState({
-        infoText: 'Number should be higher than 1',
+        infoText: 'Number should be greater than or equal to 1',
       });
     } else {
       this.setState({
