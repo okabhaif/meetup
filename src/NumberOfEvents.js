@@ -7,8 +7,7 @@ class NumberOfEvents extends Component {
     infoText: '',
   }
 
-  handleNumberInputChanged = (event) => {
-    const value = event.target.value;
+  handleNumberInputChanged = (value) => {
     this.setState({ eventsPerPage: value });
     if (value && this.props.eventsPerPage.length <= 0) {
       this.setState({
