@@ -12,12 +12,13 @@ class NumberOfEvents extends Component {
     this.setState({ eventsPerPage: value });
     if (value && this.props.eventsPerPage.length <= 0) {
       this.setState({
-        infoText: 'To get information on your local events, please enter a number higher than 1!',
+        infoText: 'Number should be higher than 1',
       });
     } else {
       this.setState({
         infoText: '',
       });
+      this.props.handleNumberInputChanged(value);
     }
   }
 
@@ -30,7 +31,7 @@ class NumberOfEvents extends Component {
           type="number"
           className="number-of-events-input"
           defaultValue={this.props.eventsPerPage}
-          onChange={event => this.props.handleNumberInputChanged(event.target.value)}
+          onChange={event => this.handleNumberInputChanged(event.target.value)}
         /> events per page </p>
 
       </div>
