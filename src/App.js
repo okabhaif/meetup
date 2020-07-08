@@ -6,6 +6,8 @@ import CitySearch from './CitySearch';
 import NumberOfEvents from './NumberOfEvents';
 import { getEvents } from './api';
 import debounce from './debounce';
+import { WarningAlert } from './Alert';
+
 
 const debouncedGetEvents = debounce(getEvents, 500);
 
@@ -16,12 +18,27 @@ class App extends Component {
       events: [],
       eventsPerPage: 32,
       lat: null,
-      lon: null
+      lon: null,
+      warningText: '',
+
     }
   };
 
   async componentDidMount() {
-    await this.updateEvents(null, null)
+    await this.updateEvents(null, null);
+    window.addEventListener('online', this.warningOfflineAlert());
+  }
+
+  warningOfflineAlert = () => {
+    if (navigator.onLine === false) {
+      this.setState({
+        warningText: 'WARNING: your internet has disconnected, please reconnect for an up to date list of events in your area!'
+      });
+    } else {
+      this.setState({
+        warningText: '',
+      });
+    }
   }
 
   updateNumberOfEvents = value => {
@@ -40,6 +57,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+        <WarningAlert text={this.state.warningText} />
         <CitySearch updateEvents={this.updateEvents} />
         <NumberOfEvents eventsPerPage={this.state.eventsPerPage} handleNumberInputChanged={(value) => this.updateNumberOfEvents(value)} />
         <EventList events={this.state.events} />
