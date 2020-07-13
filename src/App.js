@@ -94,9 +94,11 @@ class App extends Component {
             }}
           >
             <CartesianGrid />
-            <XAxis type="category" dataKey="date" name="date" />
-            <YAxis type="number" dataKey="number" name="number of events" allowDecimals={false}
+            <XAxis type="category" dataKey="date" name="date" label={{ value: 'Date of Event', offset: -10, position: 'insideBottom' }} />
+
+            <YAxis type="number" dataKey="number" name="number of events" allowDecimals={false} label={{ value: 'Number of Events', angle: -90, position: 'insideLeft' }}
             />
+
             <Tooltip cursor={{ strokeDasharray: '3 3' }} />
             <Scatter name="A school" data={this.getData()} fill="#8884d8" />
           </ScatterChart>
