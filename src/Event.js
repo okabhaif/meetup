@@ -77,7 +77,7 @@ class Event extends Component {
         {
           showDetails && <div className="show-details">
 
-            <p className="event-description" dangerouslySetInnerHTML={this.props.event.description}></p>
+            <p className="event-description" dangerouslySetInnerHTML={{__html:this.props.event.description}}></p>
             <p className="event-link">{this.props.event.link}</p>
             <button onClick={this.handleToggleDetails} className="hideDetails"> Hide Details </button>
           </div>
